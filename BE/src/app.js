@@ -12,6 +12,10 @@ app.use(passport.session());
 app.use('/projects', projectsRouter);
 
 app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
   res.send('<a href="/gitlab">Log in with GitLab</a>');
 });
 
