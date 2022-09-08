@@ -27,7 +27,7 @@ app.get('/gitlab', passport.authenticate('gitlab', { scope: ['api'] }));
 app.get(
   '/gitlab/callback',
   passport.authenticate('gitlab', {
-    successRedirect: '/projects/allProjects',
+    successRedirect: '/success',
     failureRedirect: '/failure',
   })
 );
@@ -37,7 +37,8 @@ app.get('/failure', (req, res) => {
 });
 
 app.get('/success', isLoggedIn, (req, res) => {
-  res.redirect('projects/allProjects');
+  res.setHeader('Set-Cookie', `user=${req.user._raw}`);
+  res.redirect('http://localhost:8080/profile');
 });
 
 app.get('/logout', (req, res) => {

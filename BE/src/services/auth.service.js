@@ -1,5 +1,8 @@
 const passport = require('passport');
 const GitLabStrategy = require('passport-gitlab2');
+const express = require('express');
+
+// app.use(express.cookieParser());
 
 require('dotenv').config();
 

@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
+import Cookies from 'js-cookie';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -46,6 +47,16 @@ export default function MenuAppBar() {
     navigate(routePath);
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    Cookies.remove('user');
+    window.location.reload();
+  };
+
+  let user;
+  if (Cookies.get('user')) {
+    user = JSON.parse(Cookies.get('user'));
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -104,6 +115,10 @@ export default function MenuAppBar() {
             Mentorship Task project
           </Typography>
 
+          <Typography variant="h6" component="div" sx={{ flexGrow: -1 }}>
+            {user ? user.name : ''}
+          </Typography>
+
           {/* Right hand side */}
 
           <IconButton
@@ -138,7 +153,7 @@ export default function MenuAppBar() {
             <ListItem button onClick={() => redirectRoute('/login')}>
               <ListItemText primary="Login" />
             </ListItem>
-            <ListItem button onClick={() => redirectRoute('/logout')}>
+            <ListItem button onClick={() => handleLogout()}>
               <ListItemText primary="Logout" />
             </ListItem>
           </Menu>
