@@ -16,4 +16,14 @@ module.exports = {
       return response.data;
     });
   },
+  getProjectCommits: (req, res) => {
+    const projectId = req.params.projectId;
+
+    return axios
+      .get(`https://gitlab.com/api/v4/projects/${projectId}/repository/commits`)
+      .then((response) => {
+        res.send(response.data);
+        return response.data;
+      });
+  },
 };
