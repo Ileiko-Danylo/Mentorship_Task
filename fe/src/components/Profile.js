@@ -1,24 +1,10 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
-import Button from '@mui/material/Button';
-import Cookies from 'js-cookie';
-import Typography from '@mui/material/Typography';
+import { isUserExist } from '../middleware/isUserExist';
+import { NeedToLogin } from './NeedToLogin';
 
 export const Profile = () => {
-  let user;
-  if (Cookies.get('user')) {
-    user = JSON.parse(Cookies.get('user'));
-  } else
-    return (
-      <Grid container spacing={0} alignItems="center" justifyContent="center" direction="column">
-        <Grid item>
-          <Typography sx={{ mt: 10, mb: 2 }}>YOU HAVE TO LOGIN</Typography>
-        </Grid>
-        <Button href="http://localhost:8080/login" variant="contained">
-          Login
-        </Button>
-      </Grid>
-    );
+  const user = isUserExist();
 
   if (user) {
     return (
@@ -57,6 +43,7 @@ export const Profile = () => {
         </Grid>
       </Grid>
     );
+  } else {
+    return <NeedToLogin />;
   }
-  return;
 };
