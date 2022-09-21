@@ -6,6 +6,18 @@ const { projectsRouter } = require('./routes');
 require('./services/auth.service');
 const app = express();
 
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  next();
+});
+
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -13,6 +25,9 @@ app.use('/projects', projectsRouter);
 
 app.get('/', (req, res) => {
   res.redirect('/login');
+});
+app.get('/', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
 });
 
 app.get('/login', (req, res) => {

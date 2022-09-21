@@ -2,6 +2,7 @@
 import Layout from './components/Layout';
 import { Login } from './components/Login';
 import { Profile } from './components/Profile';
+import { MainPage } from './components/MainPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { isUserExist } from './middleware/isUserExist';
@@ -20,7 +21,7 @@ function App() {
             <Route path="/feature1" element={<div />} />
             <Route path="/feature2" element={<div />} />
             <Route path="/feature3" element={<div />} />
-            <Route path="/home" element={<div />} />
+            <Route path="/mainPage" element={<MainPage />} />
             <Route path="/logout" element={<div />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

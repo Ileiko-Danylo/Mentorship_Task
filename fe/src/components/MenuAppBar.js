@@ -86,8 +86,8 @@ export default function MenuAppBar() {
             }}
           >
             <List component="nav" aria-labelledby="nested-list-subheader">
-              <ListItem button onClick={() => redirectRoute('/')}>
-                <ListItemText primary="Home" />
+              <ListItem button onClick={() => redirectRoute('/MainPage')}>
+                <ListItemText primary="Main Page" />
               </ListItem>
               <ListItem button onClick={clickFeatures}>
                 <ListItemText primary="Features" />
