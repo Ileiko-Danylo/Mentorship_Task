@@ -26,6 +26,18 @@ module.exports = {
         return response.data;
       });
   },
+
+  getSingleCommit: (req, res) => {
+    const projectId = req.params.projectId;
+    const commitId = req.params.commitId;
+
+    return axios
+      .get(`https://gitlab.com/api/v4/projects/${projectId}/repository/commits/${commitId}`)
+      .then((response) => {
+        res.send(response.data);
+        return response.data;
+      });
+  },
   // getProjectCommitsWithFilter: (req, res) => {
   //   const projectId = req.params.projectId;
   //   const authorEmail = req.params.author_email;

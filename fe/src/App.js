@@ -1,4 +1,4 @@
-// import { AppBarText } from './components/AppBarText(unnecessary)';
+import React, { useState } from 'react';
 import Layout from './components/Layout';
 import { Login } from './components/Login';
 import { Profile } from './components/Profile';
@@ -7,9 +7,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { isUserExist } from './middleware/isUserExist';
 import { NeedToLogin } from './components/NeedToLogin';
+import { ProjectCommits } from './components/ProjectCommits';
+import { CommitPage } from './components/CommitPage';
 
 function App() {
   const user = isUserExist();
+  const [projectId, setProjectId] = useState('');
+  const [commitId, setCommitId] = useState('');
 
   return (
     <Container>
@@ -20,10 +24,32 @@ function App() {
             {/* <Route path="/about" element={<AppBarText />} /> */}
             <Route path="/feature1" element={<div />} />
             <Route path="/feature2" element={<div />} />
-            <Route path="/feature3" element={<div />} />
-            <Route path="/mainPage" element={<MainPage />} />
+            <Route
+              path="/commitPage"
+              element={
+                <CommitPage
+                  projectId={projectId}
+                  commitId={commitId}
+                  onCommitIdChange={setCommitId}
+                />
+              }
+            />
+            <Route
+              path="/mainPage"
+              element={<MainPage projectId={projectId} onProjectIdChange={setProjectId} />}
+            />
             <Route path="/logout" element={<div />} />
             <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/projectCommits"
+              element={
+                <ProjectCommits
+                  projectId={projectId}
+                  commitId={commitId}
+                  onCommitIdChange={setCommitId}
+                />
+              }
+            />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

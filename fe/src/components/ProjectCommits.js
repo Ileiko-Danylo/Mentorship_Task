@@ -6,16 +6,26 @@ import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 160 },
   {
-    field: 'name',
-    headerName: 'Name',
-    width: 200,
+    field: 'title',
+    headerName: 'Title',
+    width: 120,
   },
   {
-    field: 'namespace_kind',
-    headerName: 'Namespace Kind',
+    field: 'message',
+    headerName: 'Message',
     width: 150,
+  },
+  {
+    field: 'author_name',
+    headerName: 'Author Name',
+    width: 250,
+  },
+  {
+    field: 'author_email',
+    headerName: 'Author Email',
+    width: 300,
   },
   {
     field: 'created_at',
@@ -24,42 +34,39 @@ const columns = [
     width: 170,
     valueFormatter: (params) => moment(params?.value).format('DD/MM/YYYY hh:mm A'),
   },
-  {
-    field: 'name_with_namespace',
-    headerName: 'Name with Namespace',
-    width: 250,
-  },
 ];
 
-export const MainPage = (props) => {
-  const [repos, setRepos] = useState([]);
+export const ProjectCommits = (props) => {
+  const [commits, setCommits] = useState([]);
   const [pageSize, setPageSize] = useState(5);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios(`http://localhost:3000/projects/allProjects`)
+    axios(`http://localhost:3000/projects/${props.projectId}/commits`)
       .then((response) => {
-        setRepos(response.data);
+        setCommits(response.data);
       })
       .catch((e) => console.error(e));
   }, []);
 
   const handleClick = useCallback(
     (params) => {
-      props.onProjectIdChange(params.id);
-      navigate('/projectCommits');
+      console.log(params);
+      props.onCommitIdChange(params.id);
+      navigate('/commitPage');
     },
-    [props.onProjectIdChange]
+    [props.onCommitIdChange]
   );
 
-  const rows = repos ? (
-    repos.map((repo) => ({
-      id: repo.id,
-      name: repo.name,
-      namespace_kind: repo.namespace.kind,
-      created_at: repo.created_at,
-      name_with_namespace: repo.name_with_namespace,
+  const rows = commits ? (
+    commits.map((commit) => ({
+      id: commit.id,
+      title: commit.title,
+      message: commit.message,
+      author_name: commit.author_name,
+      author_email: commit.author_email,
+      created_at: commit.created_at,
     }))
   ) : (
     <p>Loading data...</p>
@@ -81,6 +88,6 @@ export const MainPage = (props) => {
       </Box>
     );
   } else {
-    return <div>Loading data</div>;
+    return <div>No data</div>;
   }
 };
