@@ -52,7 +52,6 @@ export const ProjectCommits = (props) => {
 
   const handleClick = useCallback(
     (params) => {
-      console.log(params);
       props.onCommitIdChange(params.id);
       navigate('/commitPage');
     },

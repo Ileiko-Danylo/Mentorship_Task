@@ -11,11 +11,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  Collapse,
 } from '@mui/material/';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { AccountCircle, ExpandLess, ExpandMore } from '@mui/icons-material/';
+import { AccountCircle } from '@mui/icons-material/';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -30,10 +29,6 @@ export default function MenuAppBar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const clickFeatures = () => {
-    setOpenNested(!openNested);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -43,7 +38,6 @@ export default function MenuAppBar() {
     setAnchorEl2(event.currentTarget);
   };
 
-  /* routePaths are defined in App.js */
   const redirectRoute = (routePath) => {
     navigate(routePath);
     setAnchorEl(null);
@@ -89,23 +83,6 @@ export default function MenuAppBar() {
               <ListItem button onClick={() => redirectRoute('/MainPage')}>
                 <ListItemText primary="Main Page" />
               </ListItem>
-              <ListItem button onClick={clickFeatures}>
-                <ListItemText primary="Features" />
-                {openNested ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={openNested} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItem button onClick={() => redirectRoute('/Feature1')}>
-                    <ListItemText primary="Feature1" />
-                  </ListItem>
-                  <ListItem button onClick={() => redirectRoute('/Feature2')}>
-                    <ListItemText primary="Feature2" />
-                  </ListItem>
-                  <ListItem button onClick={() => redirectRoute('/Feature3')}>
-                    <ListItemText primary="Feature3" />
-                  </ListItem>
-                </List>
-              </Collapse>
               <ListItem button onClick={() => redirectRoute('/About')}>
                 <ListItemText primary="About" />
               </ListItem>

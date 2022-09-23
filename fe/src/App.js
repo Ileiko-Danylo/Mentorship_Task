@@ -20,26 +20,21 @@ function App() {
       <Router>
         <Routes>
           <Route element={!user ? <NeedToLogin /> : <Layout />}>
-            <Route path="/" element={<div />} />
-            {/* <Route path="/about" element={<AppBarText />} /> */}
-            <Route path="/feature1" element={<div />} />
-            <Route path="/feature2" element={<div />} />
+            <Route path="/" element={<div>There is nothing here, just move to another tab</div>} />
+            <Route
+              path="/about"
+              element={<div>Whooops, looks like I was too lazy to create this page 😀</div>}
+            />
+            <Route path="/logout" element={<div />} />
+            <Route path="/profile" element={<Profile />} />
             <Route
               path="/commitPage"
-              element={
-                <CommitPage
-                  projectId={projectId}
-                  commitId={commitId}
-                  onCommitIdChange={setCommitId}
-                />
-              }
+              element={<CommitPage projectId={projectId} commitId={commitId} />}
             />
             <Route
               path="/mainPage"
               element={<MainPage projectId={projectId} onProjectIdChange={setProjectId} />}
             />
-            <Route path="/logout" element={<div />} />
-            <Route path="/profile" element={<Profile />} />
             <Route
               path="/projectCommits"
               element={

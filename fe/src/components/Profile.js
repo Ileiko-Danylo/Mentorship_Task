@@ -33,7 +33,6 @@ export const Profile = () => {
           <p>
             <b>Commit Email</b>: {user.commit_email}
           </p>
-
           <p>
             <b>Followers</b>: {user.followers}
           </p>
