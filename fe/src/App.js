@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from './components/Layout';
 import { Login } from './components/Login';
 import { Profile } from './components/Profile';
@@ -12,8 +12,6 @@ import { CommitPage } from './components/CommitPage';
 
 function App() {
   const user = isUserExist();
-  const [projectId, setProjectId] = useState('');
-  const [commitId, setCommitId] = useState('');
 
   return (
     <Container>
@@ -28,23 +26,11 @@ function App() {
             <Route path="/logout" element={<div />} />
             <Route path="/profile" element={<Profile />} />
             <Route
-              path="/commitPage"
-              element={<CommitPage projectId={projectId} commitId={commitId} />}
+              path="/projectCommits/:projectId/commitPage/:commitId"
+              element={<CommitPage />}
             />
-            <Route
-              path="/mainPage"
-              element={<MainPage projectId={projectId} onProjectIdChange={setProjectId} />}
-            />
-            <Route
-              path="/projectCommits"
-              element={
-                <ProjectCommits
-                  projectId={projectId}
-                  commitId={commitId}
-                  onCommitIdChange={setCommitId}
-                />
-              }
-            />
+            <Route path="/mainPage" element={<MainPage />} />
+            <Route path="/projectCommits/:projectId" element={<ProjectCommits />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

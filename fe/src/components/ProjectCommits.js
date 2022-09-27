@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Box } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 160 },
@@ -36,27 +36,25 @@ const columns = [
   },
 ];
 
-export const ProjectCommits = (props) => {
+export const ProjectCommits = () => {
   const [commits, setCommits] = useState([]);
   const [pageSize, setPageSize] = useState(5);
 
-  const navigate = useNavigate();
+  const { projectId } = useParams();
 
   useEffect(() => {
-    axios(`http://localhost:3000/projects/${props.projectId}/commits`)
+    axios(`http://localhost:3000/projects/${projectId}/commits`)
       .then((response) => {
         setCommits(response.data);
       })
       .catch((e) => console.error(e));
+    // eslint-disable-next-line
   }, []);
 
-  const handleClick = useCallback(
-    (params) => {
-      props.onCommitIdChange(params.id);
-      navigate('/commitPage');
-    },
-    [props.onCommitIdChange]
-  );
+  const handleClick = useCallback((params) => {
+    window.open(`/projectCommits/${projectId}/commitPage/${params.id}`, '_blank');
+    // eslint-disable-next-line
+  }, []);
 
   const rows = commits ? (
     commits.map((commit) => ({

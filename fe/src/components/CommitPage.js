@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
 
-export const CommitPage = (props) => {
+export const CommitPage = () => {
   const [data, setData] = useState({});
+  const { projectId, commitId } = useParams();
 
   useEffect(() => {
-    axios(`http://localhost:3000/projects/${props.projectId}/commits/${props.commitId}`)
+    axios(`http://localhost:3000/projects/${projectId}/commits/${commitId}`)
       .then((response) => {
         setData(response.data);
       })
       .catch((e) => console.error(e));
+    // eslint-disable-next-line
   }, []);
 
   if (data && data.id) {

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Box } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -35,8 +34,6 @@ export const MainPage = (props) => {
   const [repos, setRepos] = useState([]);
   const [pageSize, setPageSize] = useState(5);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     axios(`http://localhost:3000/projects/allProjects`)
       .then((response) => {
@@ -45,13 +42,9 @@ export const MainPage = (props) => {
       .catch((e) => console.error(e));
   }, []);
 
-  const handleClick = useCallback(
-    (params) => {
-      props.onProjectIdChange(params.id);
-      navigate('/projectCommits');
-    },
-    [props.onProjectIdChange]
-  );
+  const handleClick = useCallback((params) => {
+    window.open(`/projectCommits/${params.id}`, '_blank');
+  }, []);
 
   const rows = repos ? (
     repos.map((repo) => ({
