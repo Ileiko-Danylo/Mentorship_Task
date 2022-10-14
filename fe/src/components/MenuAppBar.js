@@ -22,7 +22,7 @@ export default function MenuAppBar() {
   let navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [openNested, setOpenNested] = React.useState(null);
+  const [, setOpenNested] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
 
   const clickRightMenu = (event) => {

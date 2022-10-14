@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "nodemon src/app.js",
-    "test": "jest"
+    "test": "jest "
   },
   "dependencies": {
     "@types/jest": "^29.0.1",
@@ -16,10 +16,15 @@
     "moment": "^2.29.4",
     "passport": "^0.6.0",
     "passport-gitlab2": "^5.0.0",
+    "supertest": "^6.3.0",
     "universal-cookie": "^4.0.4"
   },
   "jest": {
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}",
+      "!src/index.js"
+    ],
     "coverageReporters": [
       "json",
       "html",

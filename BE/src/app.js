@@ -62,6 +62,8 @@ app.get('/logout', (req, res) => {
   res.send('You are now logged out!');
 });
 
-app.listen(3000, async () => {
+const server = app.listen(3000, async () => {
   console.log(`app listen 3000`);
 });
+
+module.exports = server;

@@ -35,6 +35,21 @@ const mockedCommits = [
   },
 ];
 
+const mockedCommit = {
+  id: 'd93465e033e8cc1787e915ebc63f61c9b6af5c4c',
+  short_id: 'd93465e0',
+  created_at: '2021-01-25T17:53:25.000+00:00',
+  parent_ids: ['7d4b21f5bca70112eff6c003e52410104d4484be'],
+  title: 'Update .gitlab-ci.yml',
+  message: 'Update .gitlab-ci.yml',
+  author_name: 'Thao Tester1',
+  author_email: 'jacn40@yahoo.com',
+  authored_date: '2021-01-25T17:53:25.000+00:00',
+  committer_name: 'Thao Tester1',
+  committer_email: 'jacn40@yahoo.com',
+  committed_date: '2021-01-25T17:53:25.000+00:00',
+};
+
 describe('Projects controller', () => {
   describe('get All Projects', () => {
     it('should return false if data doesnt fetched or res.send doesnt called with response.data ', async () => {
@@ -83,6 +98,26 @@ describe('Projects controller', () => {
       expect(res.send).toHaveBeenCalledWith(mockedCommits);
       expect(axios.get).toHaveBeenCalledWith(
         `https://gitlab.com/api/v4/projects/${req.params.projectId}/repository/commits`
+      );
+    });
+  });
+  describe('get single commit', () => {
+    it('should return false if data doesnt fetched or res.send doesnt called with response.data ', async () => {
+      const res = { send: jest.fn() };
+      const req = {
+        params: {
+          projectId: 'projectId',
+          commitId: 'commitId',
+        },
+      };
+
+      jest.spyOn(axios, 'get').mockResolvedValue({ data: mockedCommit });
+      const singleCommit = await projectsController.getSingleCommit(req, res);
+
+      expect(singleCommit).toEqual(mockedCommit);
+      expect(res.send).toHaveBeenCalledWith(mockedCommit);
+      expect(axios.get).toHaveBeenCalledWith(
+        `https://gitlab.com/api/v4/projects/${req.params.projectId}/repository/commits/${req.params.commitId}`
       );
     });
   });
